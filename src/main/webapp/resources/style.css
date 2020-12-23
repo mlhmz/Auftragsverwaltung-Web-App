@@ -1,0 +1,113 @@
+* {
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    background-color:white;
+
+}
+
+#container {
+    width: 50%;
+    height: auto;
+    padding: 50px 0;
+    margin: auto;
+    background-color: white;
+    box-shadow: 1px 1px 5px grey;
+}
+
+h3, h4 {
+    text-align: center;
+    margin: 0;
+}
+
+h3 {
+    color: rgb(255, 95, 37);
+}
+
+h5,a {
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    margin: auto;   
+    cursor: pointer;
+}
+
+p {
+    text-align: center;
+}
+
+h5,a:hover {
+    color: rgb(255, 95, 37);
+}
+
+h5 {
+    cursor: auto;
+    
+}
+
+.error {
+    color: red;
+    text-align: center;
+}
+
+select {
+    padding: 10px;
+    border: 2px grey solid;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 10px;
+    width: 100%;
+}
+
+form {
+    width: 50%;
+    margin: auto;
+}
+
+#textInput {
+    padding: 10px;
+    border: grey solid 2px;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 10px;
+    width: 100%;
+    background: white;
+}
+
+#textInput:focus {
+    border: rgb(255, 95, 37) solid 2px;
+}
+
+#radioInput {
+    text-align: center;
+    margin: auto;
+}
+
+#radioButtons {
+    margin: auto;
+    width: 90%;
+}
+
+.navigation {
+    margin: auto;
+    width: 90%;
+}
+
+#button {
+    width: 50%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color:rgb(255, 95, 37);
+    color: white;
+    margin: auto;
+    margin-top: 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
+#button:hover {
+    background-color: rgb(255, 122, 74);
+}
+
+#buttonP {
+    margin-top: 5%;
+}
