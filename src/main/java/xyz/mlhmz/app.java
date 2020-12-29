@@ -1,5 +1,6 @@
 package xyz.mlhmz;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +13,7 @@ import java.io.PrintWriter;
 @WebServlet("/app")
 public class app extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException, NullPointerException {
 
         res.setContentType("text/html");
 
@@ -23,22 +24,26 @@ public class app extends HttpServlet {
         switch(value){
             case("admin"):
                 if ((int) session.getAttribute("rang") > 1) {
-
+                    RequestDispatcher view = req.getRequestDispatcher("/apps/admin.jsp");
+                    view.include(req, res);
                 }
                 break;
             case("data"):
                 if ((int) session.getAttribute("rang") > 0) {
-
+                    RequestDispatcher view = req.getRequestDispatcher("/apps/data.jsp");
+                    view.include(req, res);
                 }
                 break;
             case("creation"):
                 if ((int) session.getAttribute("rang") > 0) {
-
+                    RequestDispatcher view = req.getRequestDispatcher("/apps/creation.jsp");
+                    view.include(req, res);
                 }
                 break;
             case("list"):
                 if ((int) session.getAttribute("rang") >= 0) {
-
+                    RequestDispatcher view = req.getRequestDispatcher("/apps/list.jsp");
+                    view.include(req, res);
                 }
                 break;
 

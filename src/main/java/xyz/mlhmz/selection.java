@@ -1,5 +1,8 @@
 package xyz.mlhmz;
 
+import xyz.mlhmz.Database.sqlUserData;
+import xyz.mlhmz.Objects.User;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,8 +25,14 @@ public class selection extends HttpServlet {
 
         PrintWriter writer = res.getWriter();
 
+        User u;
 
-        if (session.getAttribute("loggedon") != null) {
+        try {
+            u = sqlUserData.get(session.getAttribute("username").toString(), session.getAttribute("password").toString());
+        } catch (NullPointerException e) {
+            u = null;
+        }
+        if (u != null) {
             RequestDispatcher view = req.getRequestDispatcher("navigation.jsp");
             view.include(req, res);
         } else {

@@ -12,7 +12,7 @@ public class sqlUserData {
         // Initialize Database Class
         Database db = new Database();
 
-        // Run JDBC Drive
+        // Run JDBC Driver
         try (Connection con = DriverManager.getConnection(db.getUrl(), db.getUsername(), db.getPassword())) {
             // Create SQL Query (Everything from Table Login)
             String query = "SELECT * FROM login";
@@ -48,7 +48,37 @@ public class sqlUserData {
 
 
         } catch (SQLException throwables) {
+            throwables.printStackTrace();
            return null;
         }
+    }
+
+    public static void create(String username, String password, String fullname, int rang) {
+        // Initialize Database Class
+        Database db = new Database();
+
+
+        try (Connection con = DriverManager.getConnection(db.getUrl(), db.getUsername(), db.getPassword())) {
+            // Create Command for Inserting the Credentials into the Database
+            String query =
+                    "INSERT INTO login (username, password, uid, name, rang) VALUES ('" +
+                    username + "', '" +
+                    password + "', " +
+                    "NULL, '" +
+                    fullname + "' ," +
+                    rang + ")";
+
+            // Create a Statement from the DriverManager
+            Statement st = con.createStatement();
+
+            // Execute the Query with the Statement
+            st.executeUpdate(query);
+
+            // Close the Statement
+            st.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
     }
 }

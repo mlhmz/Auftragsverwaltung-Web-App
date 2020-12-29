@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Database {
-    final String url = "jdbc:mysql://localhost:3306/auftragsverwaltung";
+    final String url = "jdbc:mysql://localhost:3306/webapp";
     final String username = "root";
     final String password = "";
 
