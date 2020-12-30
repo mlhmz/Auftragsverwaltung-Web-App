@@ -9,17 +9,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin-Panel</title>
+   
 </head>
 <body>
+    <div id="nav">
+        <!-- <em class="arrow" href="/selection"></em> -->
+        <h2>Auftragsverwaltung</h2>
+
+        <ul>
+            <li><a class="selected">Admin-Panel</a></li>
+            <li><a>Datenverwaltung</a></li>
+            <li><a>Auftragsverwaltung</a></li>
+            <li><a>Auftragsliste</a></li>
+            <li><a href="/WebSqlApp/logout" class="navA">Logout</a></li>
+        </ul>
+    </div>
     <div id="site-content">
         <h3>Admin-Panel</h3>
+        <form name="deleteForm" method="POST" action="deleteUser">
+            <input type="hidden" name="uid" />
+
+        </form>
         <table>
-            <tr>
-                <th>ID</th>
-                <th>Nutzername</th>
-                <th>Voller Name</th>
-                <th>Rang</th>
-            </tr>
             <%
                 try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp", "root", "")) {
                     // Create SQL Query (Everything from Table Login)
@@ -34,22 +45,46 @@
                     // Check if Table has another Entry
                     while (rs.next()) {
                         out.println("<tr>");
-                        out.println("<td>" + rs.getString("uid") + "</td>");
-                        out.println("<td>" + rs.getString("username") + "</td>");
-                        out.println("<td>" + rs.getString("name") + "</td>");
-                        out.println("<td>" + rs.getString("rang") + "</td>");
-                        out.println("<td><a href='#'>Bearbeiten</a></td>");
-                        out.println("<td><a href='#'>Loeschen</a></td>");
+                        out.println("<div class='contentRow'>");
+                        out.println("<details>");
+                        out.println("<summary>");
+                        out.println("<div id='summaryContainer'>");
+                        out.println("<p class='itemTitle'>ID</p><br>");
+                        out.println("<p class='summaryContent'>" + rs.getString("uid") + "</p>");
+                        out.println("</div>");
+                        out.println("<div id='summaryContainer'>");
+                        out.println("<p class='itemTitle'>Nutzername</p><br>");
+                        out.println("<p class='summaryContent'>" + rs.getString("username") + "</p>");
+                        out.println("</div>");
+                        out.println("</summary>");
+                        out.println("<p class='itemTitle'>Voller Name</p>");
+                        out.println("<p>" + rs.getString("name") + "</p><br>");
+                        out.println("<p class='itemTitle'>Rechte</p>");
+                        out.println("<ul class='permissions'>");
+                        switch(rs.getInt("rang")) {
+                            case(2):
+                                out.println("<li>Administrieren</li>");
+                            case(1):
+                                out.println("<li>Verwalten</li>");
+                            case(0):
+                                out.println("<li>Lesen</li>");
+                        }
+                        out.println("</ul>");
+                        out.println("<button id='detailsBtn' form='deleteUser' name='uid' value='" + rs.getInt("uid") + "' onclick='document.deleteForm.uid.value=this.value;document.deleteForm.submit();'>Entfernen</button>");
+                        out.println("</details>");
+                        out.println("</div>");
                         out.println("</tr>");
+                        
                     }
                 } catch (Exception throwables) {
 
                 }
             %>
-        </table> 
+        </table>
         <button id="btn" onClick="toggleFormVisibility()">Nutzer erstellen</button>
     </div>
-    <div id="dimEffect" />
+    <div id="dimEffect">
+    </div>
     <form name="creationForm" id="creationForm" method="post" action="createUser">
         <h5><a onClick="toggleFormVisibility()">Schliessen</a></h5>
         <h4>Nutzer erstellen</h4>
@@ -67,6 +102,8 @@
     </form>
 </body>
 </html>
+
+
 
 <script>
     document.getElementById("creationForm").style.visibility = "hidden";
@@ -95,21 +132,39 @@
 * {
     font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
     background-color:white;
+    padding: 0;
+    margin: 0;
 }
 
-a {
+#nav a {
+    background: transparent;
+    text-decoration: none;
+    cursor: pointer;
+
+}
+
+
+
+#nav a:hover {
+    color: #FFF07C;
+}
+
+.selected a {
+    color: #FFF07C;
+}
+
+form a {
     color: grey;
     font-size: 10px;
     cursor: pointer;
 }
 
-p {
-    margin: 0;
-}
+
 
 h3 {
     text-align: center;
     color: rgb(255, 95, 37);
+    margin: 15px;    
 }
 
 h4 {
@@ -123,7 +178,7 @@ h5 {
     text-align: right;
 }
 
-form {
+#creationForm {
     position: fixed;
     width: 25%;
     background-color: white;
@@ -143,6 +198,7 @@ input {
     border: solid grey 2px;
     border-radius: 10px;
     width: 50%;
+    margin: 5px;
 }
 
 select {
@@ -153,14 +209,49 @@ select {
     margin: 10px;
 }
 
+.creationMessage {
+    text-align: center;
+}
+
+p {
+    background: transparent;
+    display: inline-table;
+    margin: 15px;
+
+}
+
+summary {
+    background: rgb(252, 252, 252);
+}
+
+.contentRow {
+    padding: 4px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin: 5px;
+    width: 50%;
+    text-align: justify;
+    border-radius: 10px;
+    border: rgb(223, 223, 223) solid 1px;
+    background: rgb(252, 252, 252);
+}
+
 #btn {
     cursor: pointer;
     margin: 2px;
     padding: 10px;
-    background-color: rgb(255, 95, 37);
+    background: transparent;
     color: white;
     border: none;
     border-radius: 10px;
+    border: 2px solid rgb(255,95,37);
+    font-weight: 700;
+    color: rgb(255,95,37);
+}
+
+#btn:hover {
+    background: rgb(255,95,37);
+    color: white;
 }
 
 #site-content {
@@ -179,7 +270,6 @@ select {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
-    transition: 0.3s;
 }
 
 table {
@@ -187,9 +277,101 @@ table {
     padding: 10px;
 }
 
-button {
+#summaryContainer {
+    display: inline-block;
+    background: transparent;
+}
+
+.summaryContent {
+    margin-top: 0;
+}
+
+.itemTitle {
+    margin-bottom: 0;
+    font-size: 12px;
+}
+
+.navA {
+    color: white;
+}
+
+details {
+    background: transparent;
+}
+
+li {
+    list-style-type: none;
+    background: transparent;
+}
+
+ul {
+    background: transparent;
+}
+
+#detailsBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#detailsBtn:hover {
+    color: rgb(255,95,37);
+}
+
+
+
+#nav ul {
+    display: inline-flex;
+    float: right;
+    margin: 5px;
+    vertical-align: middle;
+    margin-right: 10px;
+
+}
+
+#nav li {
+    margin-left: 10px;
+
+    color: white;
+    font-weight: 700;
+
+
+}
+
+.selected {
+    color: #FFC300;
+}
+
+
+#nav {
+    width: 100%;
+    height: 5%;
+    background: rgb(255,95,37);
+    margin: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+
     
 }
 
+
+
+#nav h2 {
+    margin-left: 15px;
+    display: inline-flex;
+    background: rgb(255,95,37);
+
+    color: white;
+
+
+
+}
+
+.permissions {
+    margin: 5px;
+    margin-left: 25px;
+}
 
 </style>

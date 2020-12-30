@@ -13,15 +13,20 @@
         <h5><a href="logout">Logout</a></h5>
         <div class="navigation">
             <form action="app" method="post">
-            <div id="radioButtons">
-                <% if ((int) session.getAttribute("rang") > 1) { %>
-                <input type="radio" id="radioInput"name="appSelector" value="admin">Admin-Panel</input><br>
-                <% } if ((int) session.getAttribute("rang") > 0) { %>
-                <input type="radio" id="radioInput" name="appSelector" value="data">Datenverwaltung</input><br>
-                <input type="radio" id="radioInput" name="appSelector" value="creation">Auftragserstellung</input><br>
-                <% } %>
-                <input type="radio" id="radioInput" name="appSelector" value="list">Auftragsliste</input><br>
-            </div>
+            <select name="appSelector">
+                <%
+                switch(Integer.parseInt(session.getAttribute("rang").toString())) {
+                    case(2):
+                        out.println("<option value='admin'>Admin-Panel</option>");
+                    case(1):
+                        out.println("<option value='creation'>Auftragserstellung</option>" +
+                    "<option value='data'>Datenverwaltung</option>");
+                    case(0):
+                        out.println("<option value='list'>Auftragsliste</option>");             
+                 }
+                 %>
+
+            </select>
             <input type="submit" id="button" value="Starten">
             </form>
         </div>

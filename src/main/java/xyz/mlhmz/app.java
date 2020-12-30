@@ -26,6 +26,8 @@ public class app extends HttpServlet {
                 if ((int) session.getAttribute("rang") > 1) {
                     RequestDispatcher view = req.getRequestDispatcher("/apps/admin.jsp");
                     view.include(req, res);
+                } else {
+                    res.sendRedirect(req.getContextPath() + "/selection");
                 }
                 break;
             case("data"):

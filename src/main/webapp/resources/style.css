@@ -111,3 +111,9 @@ form {
 #buttonP {
     margin-top: 5%;
 }
+
+select {
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+}

@@ -81,4 +81,26 @@ public class sqlUserData {
         }
 
     }
+
+    public static void delete(int uid) {
+        // Database Class
+        Database db = new Database();
+
+        try(Connection con = DriverManager.getConnection(db.getUrl(), db.getUsername(), db.getPassword())) {
+            // Query command to delete the Row where the uid is the one selected.
+            String query = "DELETE FROM login WHERE uid = " + uid + ";";
+
+            // Statement
+            Statement st = con.createStatement();
+
+            // Execute the Delete Command
+            st.executeUpdate(query);
+
+            // Close the Statement
+            st.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 }
