@@ -35,7 +35,8 @@ public class sqlUserData {
                                 rs.getString("password"),
                                 rs.getInt("uid"),
                                 rs.getString("name"),
-                                rs.getInt("rang"));
+                                rs.getInt("rang"),
+                                rs.getString("email"));
 
 
                     }
@@ -53,7 +54,7 @@ public class sqlUserData {
         }
     }
 
-    public static void create(String username, String password, String fullname, int rang) {
+    public static void create(String username, String password, String fullname, int rang, String email) {
         // Initialize Database Class
         Database db = new Database();
 
@@ -61,11 +62,12 @@ public class sqlUserData {
         try (Connection con = DriverManager.getConnection(db.getUrl(), db.getUsername(), db.getPassword())) {
             // Create Command for Inserting the Credentials into the Database
             String query =
-                    "INSERT INTO login (username, password, uid, name, rang) VALUES ('" +
+                    "INSERT INTO login (username, password, uid, name, email, rang) VALUES ('" +
                     username + "', '" +
                     password + "', " +
                     "NULL, '" +
-                    fullname + "' ," +
+                    fullname + "', '" +
+                    email + "', "  +
                     rang + ")";
 
             // Create a Statement from the DriverManager

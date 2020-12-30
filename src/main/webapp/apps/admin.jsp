@@ -59,6 +59,8 @@
                         out.println("</summary>");
                         out.println("<p class='itemTitle'>Voller Name</p>");
                         out.println("<p>" + rs.getString("name") + "</p><br>");
+                        out.println("<p class='itemTitle'>Email</p>");
+                                                out.println("<p>" + rs.getString("email") + "</p><br>");
                         out.println("<p class='itemTitle'>Rechte</p>");
                         out.println("<ul class='permissions'>");
                         switch(rs.getInt("rang")) {

@@ -40,7 +40,7 @@ public class createUser extends HttpServlet {
 
 
 
-        sqlUserData.create(username, password, fullname, rank);
+        sqlUserData.create(username, password, fullname, rank, email);
         PrintWriter writer = res.getWriter();
         writer.println("<p class='message'>Nutzer erfolgreich erstellt!</p>");
         RequestDispatcher view = req.getRequestDispatcher("/apps/admin.jsp");

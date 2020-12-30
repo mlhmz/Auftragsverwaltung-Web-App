@@ -6,13 +6,23 @@ public class User {
     public int uid;
     public String name;
     public int rang;
+    public String email;
 
-    public User(String username, String password, int uid, String name, int rang) {
+    public User(String username, String password, int uid, String name, int rang, String email) {
         this.username = username;
         this.password = password;
         this.uid = uid;
         this.name = name;
         this.rang = rang;
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getRang() {
